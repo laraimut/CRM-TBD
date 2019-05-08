@@ -1,5 +1,5 @@
 <?php 
-	require "../connection/mysqlDB.php";
+	require "mysqlDB.php";
     class CS{
         protected $db;
         public function __construct(){

@@ -135,77 +135,35 @@ $result=0;
       
  
  ?>
-          
-       
-
-              <div class="row">
-                <div class="col-lg-9">
-                  <h2 class="title-1 m-b-25">Customer Terbaru</h2>
-                  <div class="table-responsive table--no-card m-b-40">
-                    <table
-                      class="table table-borderless table-striped table-earning"
-                    >
-                      <thead>
-                        <tr>
-                          <th>date</th>
-                          <th>nama Customer</th>
-                          <th>nama Customer Services</th>
-                          <th class="text-right">Nama Asuransi</th>
-                          <th class="text-right">Nilai Asuransi</th>
-                          <th class="text-right">Tanggal Mulai</th>
-                          <th class="text-right">Tanggal Kadaluarsa</th>
-                          <th class="text-right">Angsuran Bulanan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>2018-09-29 05:57</td>
-                          <td>Chris</td>
-                          <td>Jaki anjg</td>
-                          <td class="text-right">Kesehatan Manual</td>
-                          <td class="text-right">Rp 25.000.000</td>
-                          <td class="text-right">2018-09-29 05:57</td>
-                          <td class="text-right">2018-09-30 00:00</td>
-                          <td class="text-right">Rp 500.000</td>
-                        </tr>
-                        <tr>
-                          <td>2018-09-29 05:57</td>
-                          <td>Chris</td>
-                          <td>Jaki anjg</td>
-                          <td class="text-right">Kesehatan Manual</td>
-                          <td class="text-right">Rp 25.000.000</td>
-                          <td class="text-right">2018-09-29 05:57</td>
-                          <td class="text-right">2018-09-30 00:00</td>
-                          <td class="text-right">Rp 500.000</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <h2 class="title-1 m-b-25">Top CS</h2>
-                  <div
-                    class="au-card au-card--bg-blue au-card-top-countries m-b-40"
-                  >
-                    <div class="au-card-inner">
-                      <div class="table-responsive">
-                        <table class="table table-top-countries">
-                          <tbody>
-                            <tr>
-                              <td>Vinson</td>
-                              <td class="text-right">$119,366.96</td>
-                            </tr>
-                            <tr>
-                              <td>Jojo</td>
-                              <td class="text-right">$70,261.65</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             <?php  
+     
+    
+    
+     $sql = "select * from customer";
+     $res= $db->executeSelectQuery($sql);
+$result=sizeof($res);
+     
+     echo  "         <div class='col-sm-6 col-lg-3'>
+     <div class='overview-item overview-item--c2'>
+       <div class='overview__inner'>
+         <div class='overview-box clearfix'>
+           <div class='icon'>
+             <i class='zmdi zmdi-account-o'></i>
+           </div>
+           <div class='text'>
+             <h2>$result</h2>
+             <span>Jumlah Customer</span>
+           </div>
+         </div>
+         <div class='overview-chart'>
+         <canvas id='widgetChart2'></canvas>
+       </div>
+       </div>
+     </div>
+   </div> ";
+     
+?>
+            
               <div class="row">
                 <div class="col-lg-12">
                   <div

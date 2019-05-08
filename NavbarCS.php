@@ -1,4 +1,4 @@
-<? require "Connection/mysqlDB.php";
+<? require "mysqlDB.php";
   session_start();
 ?>
 <!DOCTYPE html>
