@@ -1,8 +1,6 @@
-
-   <?php
+<?php
    
    include 'NavbarCS.php'?>
-
         <!-- MAIN CONTENT-->
         <div class="main-content">
           <div class="section__content section__content--p30">
@@ -45,7 +43,6 @@
        </div>
      </div> ";
        
-
  ?>
            
              <!-- -->
@@ -76,7 +73,6 @@ $result=sizeof($res);
      </div>
    </div> ";
      
-
 ?>
          
        
@@ -108,7 +104,6 @@ $result=0;
      </div>
    </div> ";
      
-
 ?>
 
 <?php  
@@ -212,7 +207,7 @@ $result=0;
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                   <div
                     class="au-card au-card--no-shadow au-card--no-pad m-b-40"
                   >

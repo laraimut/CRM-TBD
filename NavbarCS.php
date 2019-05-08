@@ -270,7 +270,6 @@
       
 	$name = $_SESSION['auth'][0]['Nama'];
   $email = $_SESSION['auth'][0]['Email'];
-
 echo "
 <div class='account-wrap'>
 <div class='account-item clearfix js-item-menu'>
@@ -294,10 +293,8 @@ echo "
   <span class='email'>$email</span>
 </div>
 </div>
-
 ";
 }
-
 ?>
                      
                         <div class="account-dropdown__body">
