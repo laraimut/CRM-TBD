@@ -1,5 +1,5 @@
 <?php 
-require "../models/cs.php";
+require "cs.php";
 session_start();
     class CSController {
         protected $member;

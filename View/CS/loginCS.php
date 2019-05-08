@@ -11,7 +11,7 @@
     <div id="bg">
      
         <div class="moduleL">   
-          <form class="form" method="post" action="../../controller/cscontroller.php">
+          <form class="form" method="post" action="../../cscontroller.php">
             <input type="text" name="email" placeholder="Email Address" class="textbox" required/>
             <input type="password" name="password" placeholder="Password" class="textbox" required/>
             <input type="submit" value="submit" class="button" />
