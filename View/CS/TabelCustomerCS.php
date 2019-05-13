@@ -1,4 +1,6 @@
-
+<?php
+   
+   include 'NavbarCS.php'?>
 
         <!-- MAIN CONTENT-->
         <div class="main-content">
@@ -53,6 +55,8 @@
                       </div>
                     </div>
                   </div>
+
+
                   <div class="table-responsive table-responsive-data2">
                     <table class="table table-data2">
                       <thead>
@@ -63,120 +67,81 @@
                               <span class="au-checkmark"></span>
                             </label>
                           </th>
-                          <th>Nama</th>
-                          <th>Alamat</th>
+                  <th>Tanggal Terdaftar</th>
+                          <th>Nama Customer</th>
+                          <th>No Telp </th>
                           <th>Email</th>
-                          <th>No Telp</th>
-                          <th>Tanggal Terdaftar</th>
-                          <th>Rating</th>
-                          <th>Total Customer</th>
+                          <th>Nama Asuransi</th>
+                          <th>Nilai Asuransi</th>
+                          <th>Premi</th>
                          
                         </tr>
                       </thead>
                       <tbody>
-                        <tr class="tr-shadow">
+                      <?php $id= $_SESSION['auth'][0]['NIKCustomerService'];
+    
+    $sql = "select * from tanggungjawab where NIKCustomerService = $id ";
+    $res= $db->executeSelectQuery($sql);
+    foreach ($res as $key => $row) {
+      echo "  
+                  
+                    <tr class='tr-shadow'>
                           <td>
-                            <label class="au-checkbox">
-                              <input type="checkbox" />
-                              <span class="au-checkmark"></span>
+                            <label class='au-checkbox'>
+                              <input type='checkbox' />
+                              <span class='au-checkmark'></span>
                             </label>
-                          </td>
-                          <td>Jojo</td>
-                          <td class="desc">Pares</td>
-                          <td>
-                            <span class="block-email">jojo@example.com</span>
-                          </td>
-                          <td>08123456789</td>
-                          <td>2018-09-27 02:12</td>
-                          <td>
-                            <span class="status--process">A</span>
-                          </td>
-                          <td>25</td>
+                          </td>";
+                        echo "<td>".$row['TanggalTerdaftar']."</td>";
+                        echo "  <td class='desc'>".$row['NamaCustomer']."</td>";
+                        echo"  <td>
+                            <span class='block-email'>".$row['NomorTelepon']."</span>";
+                            echo "      <td>".$row['Email']."</td> ";
+                            echo "      <td>".$row['NamaProduk']."</td> ";
+                      echo "    </td>
+                          <td> Rp" .$row['NilaiProduk']."</td> ";
+                    
+                    echo "      <td>
+                            <span class='status--process'> Rp".$row['Premi']." /Bulan </span>
+                          </td> ";
+
+                       echo "   <td></td> ";
                         
-                          <td>
-                            <div class="table-data-feature">
+                  echo "        <td>
+                            <div class='table-data-feature'>
                             
                           
                               </button>
                               <button
-                                class="item"
-                                data-toggle="tooltip"
-                                data-placement="top"
-                                title="Edit"
+                                class='item'
+                                data-toggle='tooltip'
+                                data-placement='top'
+                                title='Edit'
                               >
-                                <i class="zmdi zmdi-edit"></i>
+                                <i class='zmdi zmdi-edit'></i>
                               </button>
                               <button
-                                class="item"
-                                data-toggle="tooltip"
-                                data-placement="top"
-                                title="Delete"
+                                class='item'
+                                data-toggle='tooltip'
+                                data-placement='top'
+                                title='Delete'
                               >
-                                <i class="zmdi zmdi-delete"></i>
+                                <i class='zmdi zmdi-delete'></i>
                               </button>
                               <button
-                                class="item"
-                                data-toggle="tooltip"
-                                data-placement="top"
-                                title="More"
+                                class='item'
+                                data-toggle='tooltip'
+                                data-placement='top'
+                                title='More'
                               >
-                                <i class="zmdi zmdi-more"></i>
+                                <i class='zmdi zmdi-more'></i>
                               </button>
                             </div>
                           </td>
                         </tr>
-                        <tr class="spacer"></tr>
-                        <tr class="tr-shadow">
-                            <td>
-                              <label class="au-checkbox">
-                                <input type="checkbox" />
-                                <span class="au-checkmark"></span>
-                              </label>
-                            </td>
-                            <td>Jojo</td>
-                            <td class="desc">Pares</td>
-                            <td>
-                              <span class="block-email">jojo@example.com</span>
-                            </td>
-                            <td>08123456789</td>
-                            <td>2018-09-27 02:12</td>
-                            <td>
-                              <span class="status--process">A</span>
-                            </td>
-                            <td>25</td>
-                          
-                            <td>
-                              <div class="table-data-feature">
-                              
-                            
-                                </button>
-                                <button
-                                  class="item"
-                                  data-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Edit"
-                                >
-                                  <i class="zmdi zmdi-edit"></i>
-                                </button>
-                                <button
-                                  class="item"
-                                  data-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Delete"
-                                >
-                                  <i class="zmdi zmdi-delete"></i>
-                                </button>
-                                <button
-                                  class="item"
-                                  data-toggle="tooltip"
-                                  data-placement="top"
-                                  title="More"
-                                >
-                                  <i class="zmdi zmdi-more"></i>
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
+                        <tr class='spacer'></tr>
+                      
+   "; } ?>
                       </tbody>
                     </table>
                   </div>
