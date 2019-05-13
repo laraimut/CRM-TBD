@@ -134,36 +134,53 @@ $result=0;
     </div> ";
       
  
- ?>
-             <?php  
+ ?>  <div class="row">
+ <div class="col-lg-12">
+          
+ <h2 class="title-1 m-b-25">Customer Terbaru</h2>
+                  <div class="table-responsive table--no-card m-b-40">
+                    <table
+                      class="table table-borderless table-striped table-earning"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Tanggal Terdaftar</th>
+                          <th>Nama Customer</th>
+                          <th>Email</th>
+                          <th>Nama Asuransi</th>
+                          <th>Nilai Asuransi</th>
+                          <th>Premi</th>
+                         
+                        </tr>
+                      </thead>
+                      <tbody>
+          <?php  
      
+     $id= $_SESSION['auth'][0]['NIKCustomerService'];
     
-    
-     $sql = "select * from customer";
+     $sql = "select * from tanggungjawab where NIKCustomerService = $id order by TanggalTerdaftar Desc";
      $res= $db->executeSelectQuery($sql);
-$result=sizeof($res);
+     foreach ($res as $key => $row) {
      
-     echo  "         <div class='col-sm-6 col-lg-3'>
-     <div class='overview-item overview-item--c2'>
-       <div class='overview__inner'>
-         <div class='overview-box clearfix'>
-           <div class='icon'>
-             <i class='zmdi zmdi-account-o'></i>
-           </div>
-           <div class='text'>
-             <h2>$result</h2>
-             <span>Jumlah Customer</span>
-           </div>
-         </div>
-         <div class='overview-chart'>
-         <canvas id='widgetChart2'></canvas>
-       </div>
-       </div>
-     </div>
-   </div> ";
+     echo  "<tr>";
+     echo " <th>".$row['TanggalTerdaftar']."</th> ";
+    echo " <th>".$row['NamaCustomer']."</th> ";
+    echo "<th>".$row['Email']."</th>";
+    echo "<th>".$row['NamaProduk']."</th>";
+    echo "<th>".$row['NilaiProduk']."</th>";
+    echo " <th>".$row['Premi']."</th>";
+    echo "</tr>";
+     
+  }
      
 ?>
-            
+
+ </tbody> 
+                    </table>
+                  </div>
+                </div>
+              
+              </div>
               <div class="row">
                 <div class="col-lg-12">
                   <div
@@ -263,21 +280,21 @@ $result=sizeof($res);
     </div>
 
     <!-- Jquery JS-->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="../vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="../vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="../vendor/bootstrap-4.1/bootstrap.min.js"></script>
     <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js"></script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js"></script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js"></script>
+    <script src="../vendor/slick/slick.min.js"></script>
+    <script src="../vendor/wow/wow.min.js"></script>
+    <script src="../vendor/animsition/animsition.min.js"></script>
+    <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="../vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="../vendor/counter-up/jquery.counterup.min.js"></script>
+    <script src="../vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="../vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="../vendor/select2/select2.min.js"></script>
 
     <!-- Main JS-->
     <script src="js/main.js"></script>

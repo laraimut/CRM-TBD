@@ -14,8 +14,7 @@
     <img class="logo" src="images/logo.png" alt="" width="10%">       
     <div class="containerbox">
       <h2>Welcome Back!</h2>
-      <a href="view/admin/loginadmin.php"><button class="buttonz button2">Admin</button></a>
-      <a href="view/cs/logincs.php"><button class="buttonz button2">CS</button></a>
+      <a href="logincs.php"><button class="buttonz button2">Log In</button></a>
     </div>
   </div>
 </body>
