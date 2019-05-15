@@ -1,6 +1,6 @@
 <?php
     
-   include 'NavbarCS.php'?>
+   include 'NavbarAdmin.php'?>
 
 <Style>
 #nama {
@@ -33,14 +33,14 @@ display : none;
           <div class="section__content section__content--p30">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                 
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <!-- DATA TABLE -->
-                  <h3 class="title-5 m-b-35">Customer Table</h3>
+                  <h3 class="title-5 m-b-35">Customer Service Table</h3>
                   <div class="table-data__tool">
                     <div class="table-data__tool-left">
                       <div class="rs-select2--light rs-select2--md">
@@ -87,44 +87,37 @@ display : none;
                     <table class="table table-data2">
                       <thead>
                         <tr>
-                       
-                          <th>Tanggal Terdaftar</th>
-                          <th>Nama Customer</th>
-                          <th>No Telp </th>
-                          <th>Email</th>
+                        
+                
+                          <th>NIK CS</th>
+                          <th>Nama</th>
                           <th>Alamat</th>
+                          <th>No Telp</th>
+                          <th>Email</th>
                           <th>Region</th>
-                          <th>Nama Asuransi</th>
-                          <th>Nilai Asuransi</th>
-                          <th>Premi</th>
                          
                         </tr>
                       </thead>
                       <tbody>
-                      <?php      $id= $_SESSION['auth'][0]['NIKCustomerService'];
+                      <?php $id= 0;
     
-    $sql = "select * from tanggungjawab where NIKCustomerService = $id   ";
+    $sql = "select * from datacs ";
     $res= $db->executeSelectQuery($sql);
     foreach ($res as $key => $row) {
       echo "  
       
      
                     <tr class='tr-shadow'>
-                       ";
-                        echo "<td>".$row['TanggalTerdaftar']."</td>";
-                        echo "  <td class='desc'>".$row['NamaCustomer']."</td>";
+                         ";
+                        echo "<td>".$row['NIKCustomerService']."</td>";
+                        echo "  <td class='desc'>".$row['NamaCS']."</td>";
                         echo"  <td>
-                            <span class='block-email'>".$row['NomorTelepon']."</span>";
+                            <span class='block-email'>".$row['Alamat']."</span>";
+                            echo "      <td>".$row['NomorTelepon']."</td> ";
                             echo "      <td>".$row['Email']."</td> ";
-                            echo "      <td>".$row['Alamat']."</td> ";
-                            echo "      <td>".$row['NamaRegion']."</td> ";
-                            echo "      <td>".$row['NamaProduk']."</td> ";
                       echo "    </td>
-                          <td> Rp" .$row['NilaiProduk']."</td> ";
-                    
-                    echo "      <td>
-                            <span class='status--process'> Rp".$row['Premi']." /Bulan </span>
-                          </td> ";
+                          <td>" .$row['Nama']."</td> ";
+                  
 
                        echo "   <td></td> ";
                         
@@ -140,7 +133,7 @@ display : none;
                                 data-toggle='modal' data-target='#modaledit'
                                 title='Edit'
                                 href='my_modal'
-                                data-NIK=".$row['NIKCustomer']."
+                               
                               >
                                 <i class='zmdi zmdi-edit'></i>
                               </button>
@@ -155,9 +148,11 @@ display : none;
                               </button>
 
 
-                              <form method=POST action=../../Controller/CSController.php>
-                              <input type=hidden name=idCus value=".$row['NIKCustomer'].">
-                            <input class=w3-button w3-light-blue w3-margin-bottom type=submit  value=undo name=undo></form>
+                              
+
+                              <form method=POST action=../../Controller/adminController.php>
+                              <input type=hidden name=idcs value=".$row['NIKCustomerService'].">
+                            <input class=w3-button w3-light-blue w3-margin-bottom type=submit  value=undo name=undoo></form>
 
                             
                             </div>
@@ -203,8 +198,8 @@ display : none;
             
             <!-- Modal Body -->
             <div class="modal-body">
-                <h1>Tambah Customer</h1>
-                <form class="form-horizontal" role="form" action="../../controller/cscontroller.php" method="post">
+                <h1>Tambah CS Baru</h1>
+                <form class="form-horizontal" role="form" action="../../controller/admincontroller.php" method="post">
     
                   <div class="form-group">
                     <label  class="col-sm-4 control-label"
@@ -216,10 +211,10 @@ display : none;
                   </div>
                   <div class="form-group">
                     <label class="col-sm-10 control-label"
-                          for="inputPassword3" >Nama Customer</label>
+                          for="inputPassword3" >Nama CS</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control"
-                            name="Nama" placeholder="Nama Customer"/>
+                            name="Nama" placeholder="Nama CS"/>
                     </div>
                   </div>
                   <div class="form-group">
@@ -236,6 +231,14 @@ display : none;
                     <div class="col-sm-10">
                         <input type="text" class="form-control" 
                         name="emaill" placeholder="Email"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label  class="col-sm-10 control-label"
+                              for="inputEmail3">Password</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" 
+                        name="pass" placeholder="Password"/>
                     </div>
                   </div>
                   <div class="form-group">
@@ -266,19 +269,7 @@ display : none;
                               ?>
                         </select>
                         </div>
-                        <div class="form-group">
-                    <label  class="col-sm-2 control-label">Produk</label>
-                  <select name="FAKU">
-                      <?php 
-                     $sql = "select * from produk";
-                     $res= $db->executeSelectQuery($sql);
-                     foreach ($res as $key => $row) {
-                      echo "<option value='".$row['IdProduk']."'>" . $row['NamaProduk'] . "</option>";
-                            }
-                              ?>
-                        </select>
-                        </div>
-          
+                       
             </div>
             
             <!-- Modal Footer -->
@@ -287,7 +278,7 @@ display : none;
                         data-dismiss="modal">
                             Close
                 </button>
-                <button type="submit" value="post"  name="nambahcustomer" class="btn btn-primary">
+                <button type="submit" value="post"  name="nambahcs" class="btn btn-primary">
                     Simpan
                 </button>
                 </form>
@@ -317,7 +308,7 @@ display : none;
             
             <!-- Modal Body -->
             <div class="modal-body" >
-                <h1>Edit Data Customer</h1>
+                <h1>Edit Data CS</h1>
                
                 <div class="form-group ">
                 <label  class="col-sm-12 control-label">Pilih Field</label>
@@ -327,18 +318,18 @@ display : none;
                   <Button class="btn btn-info col-sm-4 ok" onclick="email()">Email</Button>
                   <Button class="btn btn-info col-sm-4 ok" onclick="alamat()">Alamat</Button>
                   <Button class="btn btn-info col-sm-4 ok" onclick="region()">Region</Button>
-                  <Button class="btn btn-info col-sm-4 ok" onclick="produk()">Produk</Button>
+                
                           </div>
 
-                          <form class="form-horizontal" role="form" action="../../controller/cscontroller.php" method="post">
+                          <form class="form-horizontal" role="form" action="../../controller/admincontroller.php" method="post">
                 <div class="form-group" >
                     <label  class="col-sm-10 control-label">Nama Customer</label>
                   <select name="INIID">
                       <?php 
-                     $sql = "select NIKCustomer,NamaCustomer from Customer";
+                     $sql = "select NIKCustomerService,Nama from customerservice";
                      $res= $db->executeSelectQuery($sql);
                      foreach ($res as $key => $row) {
-                      echo "<option value='".$row['NIKCustomer']."'>" . $row['NamaCustomer'] . "</option>";
+                      echo "<option value='".$row['NIKCustomerService']."'>" . $row['Nama'] . "</option>";
                             }
                               ?>
                         </select>
@@ -388,18 +379,7 @@ display : none;
                               ?>
                         </select>
                         </div>
-                        <div class="form-group produk" id="produk">
-                    <label  class="col-sm-2 control-label">Produk</label>
-                  <select name="FAKUU">
-                      <?php 
-                     $sql = "select * from produk";
-                     $res= $db->executeSelectQuery($sql);
-                     foreach ($res as $key => $row) {
-                      echo "<option value='".$row['IdProduk']."'>" . $row['NamaProduk'] . "</option>";
-                            }
-                              ?>
-                        </select>
-                        </div>
+                  
           
             </div>
             
@@ -409,7 +389,7 @@ display : none;
                         data-dismiss="modal">
                             Close
                 </button>
-                <button type="submit" value="post"  name="editcustomer" class="btn btn-primary">
+                <button type="submit" value="post"  name="editcs" class="btn btn-primary">
                     Simpan
                 </button>
                 </form>

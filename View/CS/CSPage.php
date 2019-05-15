@@ -80,10 +80,10 @@ $result=sizeof($res);
                 <?php  
      
     
-    //harus isi event perbulan
-  
-    //  $res= $db->executeSelectQuery($sql);
-$result=0;
+     $sql = "CALL `getAcaraBulanan`()";
+     $res= $db->executeSelectQuery($sql);
+     $result=sizeof($res);
+
      
      echo  "         <div class='col-sm-6 col-lg-3'>
      <div class='overview-item overview-item--c3'>
@@ -109,10 +109,10 @@ $result=0;
 <?php  
      
     
-     //harus isi total pembayaran customer
-   
-     //  $res= $db->executeSelectQuery($sql);
- $result=0;
+     $name = $_SESSION['auth'][0]['NIKCustomerService'];
+     $sql = "CALL `totalInvesCS`($name)";
+       $res= $db->executeSelectQuery($sql);
+       $hasil = implode ($res[0]);
       
       echo  "         <div class='col-sm-6 col-lg-3'>
       <div class='overview-item overview-item--c4'>
@@ -122,7 +122,7 @@ $result=0;
               <i class='zmdi zmdi-money'></i>
             </div>
             <div class='text'>
-              <h2>$result</h2>
+              <h2>$hasil</h2>
               <span>total Investasi Customer</span>
             </div>
           </div>
@@ -192,7 +192,7 @@ $result=0;
                     >
                       <div class="bg-overlay bg-overlay--blue"></div>
                       <h3>
-                        <i class="zmdi zmdi-account-calendar"></i>24 April, 2019
+                        <i class="zmdi zmdi-account-calendar"></i><?php echo date('D,d/M/Y'); ?>
                       </h3>
                       <button class="au-btn-plus">
                         <i class="zmdi zmdi-plus"></i>
@@ -200,68 +200,36 @@ $result=0;
                     </div>
                     <div class="au-task js-list-load">
                       <div class="au-task__title">
-                        <p>Jadwal Event Bulan April</p>
+                        <p>Jadwal Event Bulan <?php echo date('M')?></p>
                       </div>
                       <div class="au-task-list js-scrollbar3">
-                        <div class="au-task__item au-task__item--danger">
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#"
-                                >Meeting about plan for Admin Template 2018</a
-                              >
-                            </h5>
-                            <span class="time">10:00 AM</span>
-                          </div>
-                        </div>
-                        <div class="au-task__item au-task__item--warning">
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#">Create new task for Dashboard</a>
-                            </h5>
-                            <span class="time">11:00 AM</span>
-                          </div>
-                        </div>
-                        <div class="au-task__item au-task__item--primary">
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#"
-                                >Meeting about plan for Admin Template 2018</a
-                              >
-                            </h5>
-                            <span class="time">02:00 PM</span>
-                          </div>
-                        </div>
-                        <div class="au-task__item au-task__item--success">
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#">Create new task for Dashboard</a>
-                            </h5>
-                            <span class="time">03:30 PM</span>
-                          </div>
-                        </div>
-                        <div
-                          class="au-task__item au-task__item--danger js-load-item"
-                        >
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#"
-                                >Meeting about plan for Admin Template 2018</a
-                              >
-                            </h5>
-                            <span class="time">10:00 AM</span>
-                          </div>
-                        </div>
-                        <div
-                          class="au-task__item au-task__item--warning js-load-item"
-                        >
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#">Create new task for Dashboard</a>
-                            </h5>
-                            <span class="time">11:00 AM</span>
-                          </div>
-                        </div>
-                      </div>
+
+                      <?php  
+     
+    
+    
+     $sql = "CALL `getAcaraBulanan`()";
+     $res= $db->executeSelectQuery($sql);
+     foreach ($res as $key => $row) {
+     echo"
+      <div class='au-task__item au-task__item--danger'>
+      <div class='au-task__item-inner'>
+        <h5 class='task'> 
+      <a href='#'>".$row['NamaAcara']."</a>
+      <a>".$row['Jenis']."</a>
+      </h5>
+        <span class='time'>".$row['Waktu']."</span>
+      </div>
+    </div>
+";}
+?>
+
+
+
+                       
+                        
+                        
+                      
                       <div class="au-task__footer">
                         <button class="au-btn au-btn-load js-load-btn">
                           load more
@@ -279,25 +247,6 @@ $result=0;
       </div>
     </div>
 
-    <!-- Jquery JS-->
-    <script src="../vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="../vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="../vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="../vendor/slick/slick.min.js"></script>
-    <script src="../vendor/wow/wow.min.js"></script>
-    <script src="../vendor/animsition/animsition.min.js"></script>
-    <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <script src="../vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="../vendor/counter-up/jquery.counterup.min.js"></script>
-    <script src="../vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="../vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="../vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="../vendor/select2/select2.min.js"></script>
-
-    <!-- Main JS-->
-    <script src="js/main.js"></script>
   </body>
 </html>
 <!-- end document-->

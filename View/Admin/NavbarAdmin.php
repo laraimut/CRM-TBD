@@ -76,7 +76,7 @@
       <!-- MENU SIDEBAR-->
       <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
-          <a href="#">
+          <a href="AdminPage.php">
             <img src="../../images/crm.png" width="50%" alt="Cool Admin" />
           </a>
         </div>
@@ -84,32 +84,32 @@
           <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
               <li class="has-sub">
-                <a class="js-arrow" href="CSpage.php">
+                <a class="js-arrow" href="AdminPage.php">
                   <i class="fas fa-tachometer-alt"></i>Dashboard</a
                 >
               </li>
               <li>
-                <a href="TabelCustomerCS.php">
+                <a href="TabelCustomerAdmin.php">
                   <i class="fas fa-user"></i>Data Customer</a
                 >
               </li>
               <li>
-                <a href="TabelCustomerCS.php">
+                <a href="TabelCS.php">
                   <i class="fas fa-user"></i>Data Customer Services</a
                 >
               </li>
               <li>
-                <a href="TabelProduk.php">
+                <a href="produkadmin.php">
                   <i class="fas fa-newspaper"></i>Data Produk</a
                 >
               </li>
               <li>
-                <a href="form.html">
+                <a href="EventAdmin.php">
                   <i class="far fa-calendar"></i>Events</a
                 >
               </li>
               <li>
-                <a href="TabelProduk.php">
+                <a href="WilayahAdmin.php">
                   <i class="fas fa-newspaper"></i>Wilayah</a
                 >
               </li>
@@ -357,4 +357,4 @@ echo "
     <script src="../vendor/select2/select2.min.js"></script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>

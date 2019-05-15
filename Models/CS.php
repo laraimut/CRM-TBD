@@ -18,7 +18,7 @@
         // }
         
         function login($email, $password){
-            $sql = "select * from customerservice where email  = '$email' and passwordCS= '$password' ";
+            $sql = "select * from customerservice where Email  = '$email' and Password= '$password' ";
             return $this->db->executeSelectQuery($sql);
         }
         function allcs(){
