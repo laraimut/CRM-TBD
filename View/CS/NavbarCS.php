@@ -103,7 +103,11 @@
                   <i class="far fa-calendar"></i>Events</a
                 >
               </li>
-            
+              <li>
+                <a href="menghubungi.php">
+                  <i class="far fa-user"></i>Menghubungi</a
+                >
+              </li>
             </ul>
           </nav>
         </div>
@@ -348,4 +352,4 @@ echo "
     <script src="../vendor/select2/select2.min.js"></script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>

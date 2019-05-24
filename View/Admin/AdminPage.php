@@ -1,6 +1,15 @@
 <?php
    
-   include 'NavbarCS.php'?>
+   include 'NavbarAdmin.php'?>
+   <Style>
+#tabelnya {
+
+
+}
+.batas{
+  margin-top : 50px;
+}
+</Style>
         <!-- MAIN CONTENT-->
         <div class="main-content">
           <div class="section__content section__content--p30">
@@ -79,11 +88,10 @@ $result=sizeof($res);
                 <!-- -->
                 <?php  
      
-    
-    //harus isi event perbulan
-  
-    //  $res= $db->executeSelectQuery($sql);
-$result=0;
+     $sql = "CALL `getAcaraBulanan`()";
+     $res= $db->executeSelectQuery($sql);
+     $result=sizeof($res);
+
      
      echo  "         <div class='col-sm-6 col-lg-3'>
      <div class='overview-item overview-item--c3'>
@@ -108,11 +116,9 @@ $result=0;
 
 <?php  
      
-    
-     //harus isi total pembayaran customer
-   
-     //  $res= $db->executeSelectQuery($sql);
- $result=0;
+     $sql = "select sum(premi ) from tanggungjawab";
+     $res= $db->executeSelectQuery($sql);
+     $hasil = implode ($res[0]);
       
       echo  "         <div class='col-sm-6 col-lg-3'>
       <div class='overview-item overview-item--c4'>
@@ -122,7 +128,7 @@ $result=0;
               <i class='zmdi zmdi-money'></i>
             </div>
             <div class='text'>
-              <h2>$result</h2>
+              <h2>$hasil /Bulan</h2>
               <span>total Investasi Customer</span>
             </div>
           </div>
@@ -134,45 +140,63 @@ $result=0;
     </div> ";
       
  
- ?>  <div class="row">
+ ?>  
+ <div class="row">
  <div class="col-lg-12">
           
- <h2 class="title-1 m-b-25">Customer Terbaru</h2>
-                  <div class="table-responsive table--no-card m-b-40">
+ <h2 class="title-1 m-b-25"> Jumlah Customer dan Investasi Tiap Region</h2>
+ <form method="post" >
+ <select name="helpme">
+
+                      <?php 
+                     $sql = "select * from region ";
+                     $res= $db->executeSelectQuery($sql);
+                     foreach ($res as $key => $row) {
+                      echo "<option value='".$row['IdRegion']."'>" . $row['Nama'] . "</option>";
+                            }
+                              ?>
+                        </select>
+                        <input type="submit" name="submit" value="cari" />
+                        <!-- <Button class="btn btn-info col-sm-4 ok" name="tampilkan"onclick="tampilkan()">Tampilkan</Button> -->
+                          </form>
+                        <div id="tabelnya"class="table-responsive table--no-card m-b-40">
                     <table
                       class="table table-borderless table-striped table-earning"
                     >
                       <thead>
                         <tr>
-                          <th>Tanggal Terdaftar</th>
-                          <th>Nama Customer</th>
-                          <th>Email</th>
-                          <th>Nama Asuransi</th>
-                          <th>Nilai Asuransi</th>
-                          <th>Premi</th>
+                          <th>ID Region</th>
+                          <th>Nama Region</th>
+                          <th>Jumlah Customer</th>
+                          <th>Jumlah Investasi</th>
+                          
                          
                         </tr>
                       </thead>
                       <tbody>
           <?php  
-     
-     $id= $_SESSION['auth'][0]['NIKCustomerService'];
-    
-     $sql = "select * from tanggungjawab where NIKCustomerService = $id order by TanggalTerdaftar Desc";
+          $nilai = 1;
+       if(isset($_POST['submit'])){
+   $nilai = $_POST['helpme'];
+       }
+     $sql = "select * from region where IdRegion = $nilai";
      $res= $db->executeSelectQuery($sql);
-     foreach ($res as $key => $row) {
+     $jmlhcustomer = "CALL `getCountCustomerReg`($nilai)";
+     $res1= $db->executeSelectQuery($jmlhcustomer);
+     $jmlhPremi = "CALL `getTotalPremiThnReg`($nilai)";
+     $res2= $db->executeSelectQuery($jmlhPremi);
+     $hasil1 = implode ($res1[0]);
+     $hasil2 = implode ($res2[0]);
      
      echo  "<tr>";
-     echo " <th>".$row['TanggalTerdaftar']."</th> ";
-    echo " <th>".$row['NamaCustomer']."</th> ";
-    echo "<th>".$row['Email']."</th>";
-    echo "<th>".$row['NamaProduk']."</th>";
-    echo "<th>".$row['NilaiProduk']."</th>";
-    echo " <th>".$row['Premi']."</th>";
+     echo " <th>".$res[0]['IdRegion']."</th> ";
+    echo " <th>".$res[0]['Nama']."</th> ";
+    echo "<th>$hasil1</th>";
+    echo "<th>$hasil2</th>";
     echo "</tr>";
      
-  }
-     
+  
+
 ?>
 
  </tbody> 
@@ -181,7 +205,9 @@ $result=0;
                 </div>
               
               </div>
-              <div class="row">
+
+</div>
+                <div class="row batas">
                 <div class="col-lg-12">
                   <div
                     class="au-card au-card--no-shadow au-card--no-pad m-b-40"
@@ -192,7 +218,7 @@ $result=0;
                     >
                       <div class="bg-overlay bg-overlay--blue"></div>
                       <h3>
-                        <i class="zmdi zmdi-account-calendar"></i>24 April, 2019
+                        <i class="zmdi zmdi-account-calendar"></i><?php echo date('D,d/M/Y'); ?>
                       </h3>
                       <button class="au-btn-plus">
                         <i class="zmdi zmdi-plus"></i>
@@ -200,68 +226,36 @@ $result=0;
                     </div>
                     <div class="au-task js-list-load">
                       <div class="au-task__title">
-                        <p>Jadwal Event Bulan April</p>
+                        <p>Jadwal Event Bulan <?php echo date('M')?></p>
                       </div>
                       <div class="au-task-list js-scrollbar3">
-                        <div class="au-task__item au-task__item--danger">
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#"
-                                >Meeting about plan for Admin Template 2018</a
-                              >
-                            </h5>
-                            <span class="time">10:00 AM</span>
-                          </div>
-                        </div>
-                        <div class="au-task__item au-task__item--warning">
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#">Create new task for Dashboard</a>
-                            </h5>
-                            <span class="time">11:00 AM</span>
-                          </div>
-                        </div>
-                        <div class="au-task__item au-task__item--primary">
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#"
-                                >Meeting about plan for Admin Template 2018</a
-                              >
-                            </h5>
-                            <span class="time">02:00 PM</span>
-                          </div>
-                        </div>
-                        <div class="au-task__item au-task__item--success">
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#">Create new task for Dashboard</a>
-                            </h5>
-                            <span class="time">03:30 PM</span>
-                          </div>
-                        </div>
-                        <div
-                          class="au-task__item au-task__item--danger js-load-item"
-                        >
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#"
-                                >Meeting about plan for Admin Template 2018</a
-                              >
-                            </h5>
-                            <span class="time">10:00 AM</span>
-                          </div>
-                        </div>
-                        <div
-                          class="au-task__item au-task__item--warning js-load-item"
-                        >
-                          <div class="au-task__item-inner">
-                            <h5 class="task">
-                              <a href="#">Create new task for Dashboard</a>
-                            </h5>
-                            <span class="time">11:00 AM</span>
-                          </div>
-                        </div>
-                      </div>
+
+                      <?php  
+     
+    
+    
+     $sql = "CALL `getAcaraBulanan`()";
+     $res= $db->executeSelectQuery($sql);
+     foreach ($res as $key => $row) {
+     echo"
+      <div class='au-task__item au-task__item--danger'>
+      <div class='au-task__item-inner'>
+        <h5 class='task'> 
+      <a href='#'>".$row['NamaAcara']."</a>
+      <a>".$row['Jenis']."</a>
+      </h5>
+        <span class='time'>".$row['Waktu']."</span>
+      </div>
+    </div>
+";}
+?>
+
+
+
+                       
+                        
+                        
+                      
                       <div class="au-task__footer">
                         <button class="au-btn au-btn-load js-load-btn">
                           load more
@@ -279,6 +273,17 @@ $result=0;
       </div>
     </div>
 
+    <Script>
+function tampilkan() {
+  var x = document.getElementById("tabelnya");
+  if (x.style.display == "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+  
+}
+      </Script>
     <!-- Jquery JS-->
     <script src="../vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
@@ -297,7 +302,7 @@ $result=0;
     <script src="../vendor/select2/select2.min.js"></script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>
 <!-- end document-->

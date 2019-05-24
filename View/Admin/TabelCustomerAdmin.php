@@ -1,6 +1,6 @@
 <?php
     
-   include 'NavbarCS.php'?>
+   include 'NavbarAdmin.php'?>
 
 <Style>
 #nama {
@@ -26,14 +26,17 @@ display : none;
 .ok{
   margin-bottom:10px;
 }
+#cs{
+    display :none;
+}
   </Style>
 
         <!-- MAIN CONTENT-->
         <div class="main-content">
-          <div class="section__content section__content--p30">
+          <div class="section__content section__content--p50">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col">
                 
                 </div>
               </div>
@@ -41,83 +44,48 @@ display : none;
                 <div class="col-md-12">
                   <!-- DATA TABLE -->
                   <h3 class="title-5 m-b-35">Customer Table</h3>
-                  <div class="table-data__tool">
-                    <div class="table-data__tool-left">
-                      <div class="rs-select2--light rs-select2--md">
-                        <select class="js-select2" name="property">
-                          <option selected="selected">All Properties</option>
-                          <option value="">Option 1</option>
-                          <option value="">Option 2</option>
-                        </select>
-                        <div class="dropDownSelect2"></div>
-                      </div>
-                      <div class="rs-select2--light rs-select2--sm">
-                        <select class="js-select2" name="time">
-                          <option selected="selected">Today</option>
-                          <option value="">3 Days</option>
-                          <option value="">1 Week</option>
-                        </select>
-                        <div class="dropDownSelect2"></div>
-                      </div>
-                      <button class="au-btn-filter">
-                        <i class="zmdi zmdi-filter-list"></i>filters
-                      </button>
-                    </div>
-                    <div class="table-data__tool-right">
-                      <button
-                        class="au-btn au-btn-icon au-btn--green au-btn--small " data-toggle="modal" data-target="#myModalHorizontal"
-                      >
-                        <i class="zmdi zmdi-plus"></i>add item
-                      </button>
-                      <div
-                        class="rs-select2--dark rs-select2--sm rs-select2--dark2"
-                      >
-                        <select class="js-select2" name="type">
-                          <option selected="selected">Export</option>
-                          <option value="">Option 1</option>
-                          <option value="">Option 2</option>
-                        </select>
-                        <div class="dropDownSelect2"></div>
-                      </div>
-                    </div>
-                  </div>
+              
 
 
                   <div class="table-responsive table-responsive-data2">
                     <table class="table table-data2">
                       <thead>
                         <tr>
-                       
-                          <th>Tanggal Terdaftar</th>
+                        
+                  <th>Tanggal Terdaftar</th>
                           <th>Nama Customer</th>
-                          <th>No Telp </th>
-                          <th>Email</th>
                           <th>Alamat</th>
                           <th>Region</th>
+                          <th>Nama CS </th>
+                          <th>No Telp </th>
+                          <th>Email</th>
                           <th>Nama Asuransi</th>
                           <th>Nilai Asuransi</th>
                           <th>Premi</th>
+                        
+                        
                          
                         </tr>
                       </thead>
                       <tbody>
-                      <?php      $id= $_SESSION['auth'][0]['NIKCustomerService'];
+                      <?php 
     
-    $sql = "select * from tanggungjawab where NIKCustomerService = $id   ";
+    $sql = "select * from tanggungjawab where deleted=0 ";
     $res= $db->executeSelectQuery($sql);
     foreach ($res as $key => $row) {
       echo "  
       
      
                     <tr class='tr-shadow'>
-                       ";
+                        ";
                         echo "<td>".$row['TanggalTerdaftar']."</td>";
                         echo "  <td class='desc'>".$row['NamaCustomer']."</td>";
+                        echo "      <td>".$row['Alamat']."</td> ";
+                        echo "      <td>".$row['NamaRegion']."</td> ";
+                        echo "  <td class='desc'>".$row['NamaCS']."</td>";
                         echo"  <td>
                             <span class='block-email'>".$row['NomorTelepon']."</span>";
                             echo "      <td>".$row['Email']."</td> ";
-                            echo "      <td>".$row['Alamat']."</td> ";
-                            echo "      <td>".$row['NamaRegion']."</td> ";
                             echo "      <td>".$row['NamaProduk']."</td> ";
                       echo "    </td>
                           <td> Rp" .$row['NilaiProduk']."</td> ";
@@ -140,22 +108,16 @@ display : none;
                                 data-toggle='modal' data-target='#modaledit'
                                 title='Edit'
                                 href='my_modal'
-                                data-NIK=".$row['NIKCustomer']."
+                             
                               >
                                 <i class='zmdi zmdi-edit'></i>
                               </button>
                            
-                              <button
-                                class='item'
-                                data-toggle='tooltip'
-                                data-placement='top'
-                                title='Delete'
-                              >
-                                <i class='zmdi zmdi-delete'></i>
-                              </button>
+                            <form method=post action=../../Controller/AdminController.php>
+                               <input type=hidden name=idCuss value=".$row['NIKCustomer'].">
+                             <input  type=submit  value=Delete name=hapuscus></form>
 
-
-                              <form method=POST action=../../Controller/CSController.php>
+                              <form method=POST action=../../Controller/AdminController.php>
                               <input type=hidden name=idCus value=".$row['NIKCustomer'].">
                             <input class=w3-button w3-light-blue w3-margin-bottom type=submit  value=undo name=undo></form>
 
@@ -185,118 +147,6 @@ display : none;
         </div>
       </div>
     </div>
-
-  <!-- Modal -->
-<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" 
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <button type="button" class="close" 
-                   data-dismiss="modal">
-                       <span aria-hidden="true">&times;</span>
-                       <span class="sr-only">Close</span>
-                </button>
-               
-            </div>
-            
-            <!-- Modal Body -->
-            <div class="modal-body">
-                <h1>Tambah Customer</h1>
-                <form class="form-horizontal" role="form" action="../../controller/cscontroller.php" method="post">
-    
-                  <div class="form-group">
-                    <label  class="col-sm-4 control-label"
-                              for="inputEmail3">No Nik</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" 
-                        name="NIK" placeholder="NIK"/>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-10 control-label"
-                          for="inputPassword3" >Nama Customer</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                            name="Nama" placeholder="Nama Customer"/>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label  class="col-sm-10 control-label"
-                              for="inputEmail3">No Telp</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" 
-                        name="Notelp" placeholder="No Hp"/>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label  class="col-sm-10 control-label"
-                              for="inputEmail3">Email</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" 
-                        name="emaill" placeholder="Email"/>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label  class="col-sm-10 control-label"
-                              for="inputEmail3">Tanggal Lahir</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" 
-                        name="tanggal" placeholder="YYYYMMDD" />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label  class="col-sm-10 control-label"
-                              for="inputEmail3">Alamat</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Alamat"
-                        name="alamat" />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label  class="col-sm-2 control-label">Region</label>
-                  <select name="FAK">
-                      <?php 
-                     $sql = "select * from region ";
-                     $res= $db->executeSelectQuery($sql);
-                     foreach ($res as $key => $row) {
-                      echo "<option value='".$row['IdRegion']."'>" . $row['Nama'] . "</option>";
-                            }
-                              ?>
-                        </select>
-                        </div>
-                        <div class="form-group">
-                    <label  class="col-sm-2 control-label">Produk</label>
-                  <select name="FAKU">
-                      <?php 
-                     $sql = "select * from produk";
-                     $res= $db->executeSelectQuery($sql);
-                     foreach ($res as $key => $row) {
-                      echo "<option value='".$row['IdProduk']."'>" . $row['NamaProduk'] . "</option>";
-                            }
-                              ?>
-                        </select>
-                        </div>
-          
-            </div>
-            
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">
-                            Close
-                </button>
-                <button type="submit" value="post"  name="nambahcustomer" class="btn btn-primary">
-                    Simpan
-                </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 
 
@@ -328,12 +178,13 @@ display : none;
                   <Button class="btn btn-info col-sm-4 ok" onclick="alamat()">Alamat</Button>
                   <Button class="btn btn-info col-sm-4 ok" onclick="region()">Region</Button>
                   <Button class="btn btn-info col-sm-4 ok" onclick="produk()">Produk</Button>
+                  <Button class="btn btn-info col-sm-4 ok" onclick="cs()">Ganti CS</Button>
                           </div>
 
-                          <form class="form-horizontal" role="form" action="../../controller/cscontroller.php" method="post">
+                          <form class="form-horizontal" role="form" action="../../controller/admincontroller.php" method="post">
                 <div class="form-group" >
                     <label  class="col-sm-10 control-label">Nama Customer</label>
-                  <select name="INIID">
+                  <select name="INIIDI">
                       <?php 
                      $sql = "select NIKCustomer,NamaCustomer from Customer";
                      $res= $db->executeSelectQuery($sql);
@@ -367,7 +218,18 @@ display : none;
                         name="emailll" placeholder="Email"/>
                     </div>
                   </div>
-                
+                  <div class="form-group region" id="cs">
+                    <label  class="col-sm-2 control-label">Customer Services</label>
+                  <select name="MANTAPP">
+                      <?php 
+                     $sql = "select * from Customerservice ";
+                     $res= $db->executeSelectQuery($sql);
+                     foreach ($res as $key => $row) {
+                      echo "<option value='".$row['NIKCustomerService']."'>" . $row['Nama'] . "</option>";
+                            }
+                              ?>
+                        </select>
+                        </div>
                   <div class="form-group alamat" id="alamat">
                     <label  class="col-sm-10 control-label"
                               for="inputEmail3">Alamat</label>
@@ -473,6 +335,15 @@ function region() {
 
 function produk() {
   var x = document.getElementById("produk");
+  if (x.style.display == "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+  
+}
+function cs() {
+  var x = document.getElementById("cs");
   if (x.style.display == "none") {
     x.style.display = "block";
   } else {
